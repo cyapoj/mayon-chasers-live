@@ -709,9 +709,9 @@ async function loadShootingConditions(){
    const knownView=[low,mid,rain,visibility].every(Number.isFinite);
    const view=!knownView?'UNKNOWN':rain>=65||visibility<3000||low>=80||mid>=90?'LIKELY OBSCURED':rain>=35||visibility<7000||low>=45||mid>=65?'UNCERTAIN':'FAVORABLE OUTLOOK';
    const knownDrone=[rain,rainfall,wind,gust,windHigh,visibility].every(Number.isFinite);
-   // Conservative area flag: within 10 km of the airport requires airspace verification;
-   // the airport stop itself is never classified as a weather-green flying site.
-   const nearAirport=locId==='airport'||(area.gps&&Math.hypot((area.lat-forecastCoords.airport[0])*111,(area.long-forecastCoords.airport[1])*108)<10);
+   // Conservative app-defined 10-km airport buffer for ALL selected viewpoints, including GPS.
+   // Not an official airspace map or regulatory distance determination; independently verify restrictions.
+   const nearAirport=locId==='airport'||Math.hypot((area.lat-forecastCoords.airport[0])*111,(area.long-forecastCoords.airport[1])*108)<10;
    const drone=nearAirport?'NO-GO · AIRPORT AREA':!knownDrone?'UNKNOWN':code>=95||rain>=60||rainfall>=0.5||gust>=30||windHigh>=30||wind>=25||visibility<3000?'NO-GO · WEATHER':rain>=30||rainfall>0||gust>=20||windHigh>=20||wind>=16||visibility<6000?'CAUTION · WEATHER':'FAVORABLE · WEATHER ONLY';
    assessments.push({hour,view,drone,isDay});
    const uavLevel=drone.startsWith('NO-GO')?'red':drone.startsWith('CAUTION')?'amber':drone.startsWith('FAVORABLE')?'green':'gray';
