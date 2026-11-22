@@ -196,6 +196,17 @@ body.mayon-viewer .tick{display:none!important;pointer-events:none}
 .admin-shortcuts a{border:1px solid #3c7067;padding:9px 11px;border-radius:9px;color:#d0f4e5;text-decoration:none;background:#173b36;font-size:12px}
 #adminArea[hidden],#adminTools[hidden]{display:none!important}
 @media(max-width:620px){.reading-shortcuts a{padding:9px 10px}.hourly-expand>summary span{max-width:125px}}
+
+/* v16.2: additional weather model comparisons */
+.model-compare{margin:14px 0;padding:0 13px 12px;background:#17282e;color:#e8f4f0;border:1px solid #38585c;border-radius:14px}
+.model-compare summary{padding:14px 0;cursor:pointer;font-weight:700;color:#e8f4f0;line-height:1.4}
+.model-compare p,.model-compare small{color:#c3d8d5;line-height:1.5}
+.model-compare .model-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.model-compare table{border-collapse:collapse;width:100%;min-width:540px;font-size:13px;color:#eef9f5}
+.model-compare th,.model-compare td{padding:10px 8px;border-bottom:1px solid #39545a;text-align:left;white-space:nowrap}
+.model-compare th{color:#bce8dc;font-weight:700}
+.model-compare a{color:#9de6cb;text-decoration:underline}
+.model-compare .model-alert{color:#ffd99a;font-weight:700}
 </style></head><body><header><div class="wrap"><button id="adminGear" class="admin-gear" type="button" aria-label="Admin settings" title="Admin settings" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.3 7.3 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 13.89 2h-3.78a.5.5 0 0 0-.49.42L9.25 4.96c-.59.23-1.13.55-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.72 8.48a.5.5 0 0 0 .12.64l2.03 1.58a6.8 6.8 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.23.4.32.6.22l2.39-.96c.49.39 1.03.71 1.62.94l.37 2.54c.04.24.24.42.49.42h3.78c.25 0 .45-.18.49-.42l.36-2.54c.59-.23 1.13-.55 1.62-.94l2.39.96c.23.1.48.01.6-.22l1.92-3.32a.5.5 0 0 0-.12-.64zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button><div class="eyebrow">ALBAY · PHOTOGRAPHY TRIP</div><h1>SCI Photographers - Bicol 2026</h1><div class="muted">23–26 November 2026 <span class="dotsep">·</span> The Oriental Legazpi</div><span class="pill">Nov 24 · Quitinday</span><span class="pill">4:00 AM departures</span><span class="pill">Night sessions</span><span class="pill">Daily plan</span><div class="top-actions"><a class="btn" href="https://maps.app.goo.gl/AinND7Pis7fMf8mb7?g_st=ac" target="_blank" rel="noopener">📌 Saved places</a><a class="btn secondary" id="hotelMap" target="_blank" rel="noopener">↗ Hotel</a></div></div></header><main class="wrap"><nav class="tabs" aria-label="Choose day"><button class="tab active" data-day="0">Mon 23</button><button class="tab" data-day="1">Tue 24</button><button class="tab" data-day="2">Wed 25</button><button class="tab" data-day="3">Thu 26</button></nav><section id="fieldWeather" class="field-panel" aria-label="Location weather forecast"><div class="field-head"><strong>🌤️ Weather Forecast · Photo & Drone</strong><small id="fieldWeatherStatus">Loading forecast…</small></div><div class="forecast-picker"><label for="forecastPlace">📍 Forecast viewpoint</label><select id="forecastPlace" aria-label="Choose forecast location"></select><span class="field-muted">Stops for this day. Plans changed? Use My Location for GPS-based weather.</span><div class="forecast-buttons"><button type="button" id="forecastGps" class="btn secondary">📍 Use my location</button><button type="button" id="forecastRefresh" class="btn secondary">↻ Refresh</button></div></div><div class="field-muted forecast-provenance" id="forecastProvenance" role="status" aria-live="polite">Data source: Open-Meteo Weather API · Waiting for forecast. No data retrieved yet.</div><div id="weatherDetails" class="field-grid"><span class="field-muted">Checking cloud and rain forecasts for today’s route.</span></div><div class="field-foot">Hourly estimates for the selected shooting area, 12 AM–11 PM PHT. Drone data includes 10 m wind, gusts and 80 m wind (model estimate). Gusts are not measured at your actual flight height. Forecast is not permission to fly: check local restrictions, airspace, weather alerts and actual conditions. Near Mayon, volcanic restrictions may apply. Follow CAAP rules and local authorities.</div></section><section id="astroGuide" class="field-panel" aria-label="Photographer light and sky times"><div class="field-head"><strong>Light & sky guide</strong><span class="field-muted" id="astroDate">Legazpi · PHT</span></div><div id="astroDetails" class="sky-grid"><span class="field-muted">Calculating sun and moon times…</span></div><div class="field-foot">Solar and moon events are calculated for Legazpi (PHT). Blue/golden hour windows are approximate; local hills and clouds can hide the horizon. Milky Way core rise is geometric, not a visibility guarantee.</div></section><section id="dayMap" class="field-panel" aria-label="Daily map pins"><div class="field-head"><strong>Daily map pins &amp; routes</strong><span class="field-muted">Selected day</span></div><div id="dayMapDetails"></div></section><div class="pdf-actions"><button type="button" id="pdfAll" class="btn secondary">Download itinerary · All days</button><button type="button" id="pdfDay" class="btn secondary">This day only</button></div><div class="admin-area" id="adminArea" hidden><section class="wrap" id="live-panel" aria-label="Online itinerary access">
  <div class="live-header"><strong>SCI Photographers - Bicol 2026 · Online itinerary</strong><span id="liveStatus" class="live-status">Connecting…</span></div>
  <div id="liveGuest"><div class="small">Everyone can view the schedule. Editor access requires sign-in.</div><form id="liveLogin" autocomplete="on"><label>Email<input id="liveEmail" type="email" autocomplete="username" required placeholder="Editor email"></label><label>Password<input id="livePassword" type="password" autocomplete="current-password" required placeholder="Password"></label><button type="submit">Sign in</button></form></div>
@@ -683,11 +694,18 @@ async function loadShootingConditions(){
  weatherProvenance('Fetching fresh forecast from Open-Meteo Weather API'+(locId==='gps'?' using current phone GPS coordinates':' for '+area.name)+'…');
  const variables='temperature_2m,weather_code,is_day,precipitation_probability,precipitation,cloud_cover,cloud_cover_low,cloud_cover_mid,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m,wind_speed_80m,wind_direction_80m';
  const req='https://api.open-meteo.com/v1/forecast?latitude='+area.lat+'&longitude='+area.long+'&hourly='+variables+'&wind_speed_unit=kmh&temperature_unit=celsius&timezone=Asia%2FManila&start_date='+targetDate+'&end_date='+targetDate;
+  // Additional independent MODEL outputs, both distributed by Open-Meteo's public API.
+  // These are not WeatherAPI.com and not an official PAGASA numerical feed.
+  const modelFields='temperature_2m,precipitation,cloud_cover,wind_speed_10m,wind_gusts_10m';
+  const modelQuery='?latitude='+area.lat+'&longitude='+area.long+'&hourly='+modelFields+'&wind_speed_unit=kmh&temperature_unit=celsius&timezone=Asia%2FManila&start_date='+targetDate+'&end_date='+targetDate;
+
  try{
-  const [weatherResponse,airResponse,marineResponse]=await Promise.allSettled([
+  const [weatherResponse,airResponse,marineResponse,ecmwfResponse,gfsResponse]=await Promise.allSettled([
     fetch(req),
     fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude='+area.lat+'&longitude='+area.long+'&hourly=us_aqi,pm2_5&timezone=Asia%2FManila&start_date='+targetDate+'&end_date='+targetDate),
-    (['malilipot','pier','boulevard','sign'].includes(locId)?fetch('https://marine-api.open-meteo.com/v1/marine?latitude='+area.lat+'&longitude='+area.long+'&hourly=sea_level_height_msl,wave_height&timezone=Asia%2FManila&start_date='+targetDate+'&end_date='+targetDate):Promise.resolve(null))
+    (['malilipot','pier','boulevard','sign'].includes(locId)?fetch('https://marine-api.open-meteo.com/v1/marine?latitude='+area.lat+'&longitude='+area.long+'&hourly=sea_level_height_msl,wave_height&timezone=Asia%2FManila&start_date='+targetDate+'&end_date='+targetDate):Promise.resolve(null)),
+     fetch('https://api.open-meteo.com/v1/ecmwf'+modelQuery),
+     fetch('https://api.open-meteo.com/v1/gfs'+modelQuery)
   ]);
   if(weatherResponse.status!=='fulfilled'||!weatherResponse.value.ok)throw Error('Forecast service unavailable');
   const json=await weatherResponse.value.json();const h=json.hourly||{};
@@ -695,6 +713,41 @@ async function loadShootingConditions(){
   if(airResponse.status==='fulfilled'&&airResponse.value.ok){try{airHourly=(await airResponse.value.json()).hourly||{};airLoaded=true}catch(e){console.warn('Air quality unavailable',e)}}
   if(marineResponse.status==='fulfilled'&&marineResponse.value?.ok){try{marineHourly=(await marineResponse.value.json()).hourly||{};marineLoaded=true}catch(e){console.warn('Marine forecast unavailable',e)}}
   const nearbyValue=(hourly,field,key)=>{const index=(hourly.time||[]).indexOf(key);return index>=0&&Number.isFinite(hourly[field]?.[index])?hourly[field][index]:null};
+   const readModel=async(result)=>{
+     if(result.status!=='fulfilled'||!result.value.ok)return null;
+     try{const j=await result.value.json();if(j.error||!Array.isArray(j.hourly?.time))return null;return j.hourly}catch{return null}
+   };
+   const ecmwfHourly=await readModel(ecmwfResponse),gfsHourly=await readModel(gfsResponse);
+   // Compare actual hourly forecast model values; never invent or substitute values.
+   const compareTime=[6,12,17];
+   const fmt=(v,suffix='',digits=0)=>Number.isFinite(v)?Number(v).toFixed(digits)+suffix:'—';
+   const sample=(hourly,hour)=>{
+     if(!hourly)return null;
+     const key=targetDate+'T'+String(hour).padStart(2,'0')+':00';
+     const idx=(hourly.time||[]).indexOf(key);
+     if(idx<0)return null;
+     const get=k=>Number.isFinite(hourly[k]?.[idx])?hourly[k][idx]:null;
+     return {cloud:get('cloud_cover'),rain:get('precipitation'),gust:get('wind_gusts_10m'),temp:get('temperature_2m')};
+   };
+   const modelSources=[{name:'Open-Meteo · Best Match',data:h},{name:'ECMWF IFS',data:ecmwfHourly},{name:'NOAA GFS',data:gfsHourly}];
+   const modelRows=compareTime.flatMap(hour=>modelSources.map(model=>{
+     const x=sample(model.data,hour);
+     return '<tr><td>'+((hour+11)%12+1)+(hour<12?' AM':' PM')+'</td><td>'+model.name+'</td><td>'+
+       (x?fmt(x.temp,'°C',1):'Unavailable')+'</td><td>'+(x?fmt(x.cloud,'%'):'Unavailable')+'</td><td>'+
+       (x?fmt(x.rain,' mm',1):'Unavailable')+'</td><td>'+(x?fmt(x.gust,' km/h'):'Unavailable')+'</td></tr>';
+   })).join('');
+   const disagreements=compareTime.some(hour=>{
+     const samples=modelSources.map(m=>sample(m.data,hour)).filter(Boolean);
+     const spread=field=>{const values=samples.map(x=>x[field]).filter(Number.isFinite);return values.length>1?Math.max(...values)-Math.min(...values):0};
+     return spread('cloud')>=30||spread('rain')>=3||spread('gust')>=15;
+   });
+   const comparison='<details class="model-compare"><summary>🌦️ Compare 3 forecast models · Best Match / ECMWF / GFS</summary>'+
+     '<p>Three model outputs, supplied through Open-Meteo. ECMWF and GFS are additional model feeds—not independent weather providers. These values may disagree, especially around Mayon.</p>'+
+     (disagreements?'<p class="model-alert">⚠️ Models disagree substantially at one or more sampled hours. Check actual conditions and PAGASA before travel or flying.</p>':'')+
+     '<div class="model-scroll"><table><thead><tr><th>Time</th><th>Model</th><th>Temp</th><th>Cloud</th><th>Rainfall</th><th>Gust</th></tr></thead><tbody>'+modelRows+'</tbody></table></div>'+
+     '<p>Cloud = model total cloud cover, rainfall = estimated precipitation in the preceding hour. No model predicts actual summit visibility. <a href="https://www.pagasa.dost.gov.ph/regional-forecast/slprsd" target="_blank" rel="noopener">PAGASA Bicol advisories</a> · <a href="https://panahon.gov.ph/" target="_blank" rel="noopener">PAGASA observations/radar</a></p>'+
+     '<small>Model sources fetched on refresh. Unavailable means the individual feed failed or did not return that hour; it is not an estimate of zero.</small></details>';
+
   const hourRows=[], assessments=[], uavHours=[];
   const num=(field,pos)=>Number.isFinite(h[field]?.[pos])?h[field][pos]:null;
   const percent=n=>n===null?'—':Math.round(n)+'%';
@@ -768,11 +821,13 @@ async function loadShootingConditions(){
    const target=root.querySelector('.uav-selected');if(target)target.innerHTML=val;
   };
 
-  const content=dashboard+uavPanel;
+   const content=dashboard+uavPanel+comparison;
   weatherCache.set(cacheKey,content);
   if(current===forecastSequence){
     const services=['Open-Meteo Weather API (hourly)'];
-    services.push('Open-Meteo Air Quality API: '+(airLoaded?'loaded':'unavailable'));
+    services.push('ECMWF IFS model API: '+(ecmwfHourly?'loaded':'unavailable'));
+     services.push('NOAA GFS model API: '+(gfsHourly?'loaded':'unavailable'));
+     services.push('Open-Meteo Air Quality API: '+(airLoaded?'loaded':'unavailable'));
     if(['malilipot','pier','boulevard','sign'].includes(locId))services.push('Open-Meteo Marine API: '+(marineLoaded?'loaded':'unavailable'));
     weatherProvenance('Source: '+services.join(' · ')+' | Fetched: '+forecastFetchedTime()+' | Forecast date: '+targetDate+' (PHT) | Viewpoint: '+area.name+(area.gps?' (device GPS; private)':' (approximate sample coordinates)')+' | Refresh to fetch new values.');
     host.innerHTML=content;
